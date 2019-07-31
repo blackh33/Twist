@@ -501,10 +501,10 @@ function sslibevinstall(){
     [ -z "$MAKECORES" ] && MAKECORES="1"
 	if [ "$1" = "install" ]; then
         [ -z "$libsodiumver" ] && libsodiumver="$(wget -qO- https://github.com/jedisct1/libsodium | grep 'tag_name' | cut -d\" -f4)"
-        wget -t 3 -T 30 -nv -O libsodium-${libsodiumver}.tar.gz https://download.libsodium.org/libsodium/releases/${libsodiumver}/libsodium-1.0.18${libsodiumver}.tar.gz
+        wget -t 3 -T 30 -nv -O libsodium-1.0.18${libsodiumver}.tar.gz https://download.libsodium.org/libsodium/releases/${libsodiumver}/libsodium-1.0.18${libsodiumver}.tar.gz
         [ "$?" != "0" ] && sslibevinstallerr "libsodium-${libsodiumver}"
-        [ -d libsodium-${libsodiumver} ] && rm -rf libsodium-${libsodiumver}
-        tar zxf libsodium-${libsodiumver}.tar.gz
+        [ -d libsodium-1.0.18${libsodiumver} ] && rm -rf libsodium-1.0.18${libsodiumver}
+        tar zxf libsodium-1.0.18${libsodiumver}.tar.gz
         pushd libsodium-1.0.18${libsodiumver}
         ./configure --prefix=/usr && make "-j$((MAKECORES+1))" && make install || sslibevinstallerr "libsodium-1.0.18${libsodiumver}" err
         popd
@@ -521,7 +521,7 @@ function sslibevinstall(){
         make SHARED=1 CFLAGS=-fPIC "-j$((MAKECORES+1))" && make DESTDIR=/usr install || sslibevinstallerr "mbedtls-${mbedtlsver}" err
         popd
         ldconfig
-        rm -rf libsodium-${libsodiumver}.tar.gz libsodium-${libsodiumver} mbedtls-${mbedtlsver}-gpl.tgz mbedtls-${mbedtlsver}
+        rm -rf libsodium-1.0.18${libsodiumver}.tar.gz libsodium-1.0.18${libsodiumver} mbedtls-${mbedtlsver}-gpl.tgz mbedtls-${mbedtlsver}
     fi
     [ -z "$sslibevtag" ] && sslibevtag="$(wget -qO- https://api.github.com/repos/shadowsocks/shadowsocks-libev/releases/latest | grep 'tag_name' | cut -d\" -f4)"
     sslibevver="shadowsocks-libev-$(echo ${sslibevtag} | sed -e 's/^[a-zA-Z]//g')"

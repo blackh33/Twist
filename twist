@@ -505,8 +505,8 @@ function sslibevinstall(){
         [ "$?" != "0" ] && sslibevinstallerr "libsodium-${libsodiumver}"
         [ -d libsodium-${libsodiumver} ] && rm -rf libsodium-${libsodiumver}
         tar zxf libsodium-${libsodiumver}.tar.gz
-        pushd libsodium-${libsodiumver}
-        ./configure --prefix=/usr && make "-j$((MAKECORES+1))" && make install || sslibevinstallerr "libsodium-${libsodiumver}" err
+        pushd libsodium-1.0.18${libsodiumver}
+        ./configure --prefix=/usr && make "-j$((MAKECORES+1))" && make install || sslibevinstallerr "libsodium-1.0.18${libsodiumver}" err
         popd
         if ! ldconfig -p | grep -wq "/usr/lib"; then
             echo "/usr/lib" > /etc/ld.so.conf.d/lib.conf
